@@ -1,37 +1,35 @@
-﻿using Sitecore.Collections;
-using Sitecore.Configuration;
+﻿using Sitecore.Configuration;
 using Sitecore.Diagnostics;
-using Sitecore.Diagnostics.PerformanceCounters;
 using Sitecore.IO;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Sitecore.Support.Collections;
+using Sitecore.Support.Diagnostics.PerformanceCounters;
 
-namespace Sitecore.Support.Diagnostics.PerformanceCounters
+namespace Sitecore.Support.Tasks
 {
-    public class ExtendedCounterDumpAgent
+    public class CounterDumpAgent
     {
         private string m_dumpFile;
 
-        public ExtendedCounterDumpAgent()
+        public CounterDumpAgent()
         {
             this.DumpFile = Settings.DataFolder + "/diagnostics/counters.txt";
         }
 
-        private AmountPerSecondCounter[] GetCounters()
+        private Sitecore.Diagnostics.PerformanceCounters.AmountPerSecondCounter[] GetCounters()
         {
-            AmountPerSecondCounter[] array = this.GetAmountPerSecondCounters().ToArray();
-            Array.Sort(array, new ExtendedAmountPerSecondCounterComparer());
+            Sitecore.Diagnostics.PerformanceCounters.AmountPerSecondCounter[] array = this.GetAmountPerSecondCounters().ToArray();
+            Array.Sort(array, new PerformanceCounterComparer());
             return array;
         }
 
-        private AmountPerSecondCounterCollection GetAmountPerSecondCounters()
+        private PerformanceCounterCollection GetAmountPerSecondCounters()
         {
-            AmountPerSecondCounterCollection counters = new AmountPerSecondCounterCollection();
-            Type ancestorType = typeof(AmountPerSecondCounter);
+            PerformanceCounterCollection counters = new PerformanceCounterCollection();
+            Type ancestorType = typeof(Sitecore.Diagnostics.PerformanceCounters.AmountPerSecondCounter);
             foreach (Type type2 in Assembly.GetExecutingAssembly().GetExportedTypes())
             {
                 if (type2.Name.EndsWith("Count", StringComparison.InvariantCulture))
@@ -40,7 +38,7 @@ namespace Sitecore.Support.Diagnostics.PerformanceCounters
                     {
                         if (MainUtil.IsType(info.PropertyType, ancestorType))
                         {
-                            counters.Add(info.GetValue(null, null) as AmountPerSecondCounter);
+                            counters.Add(info.GetValue(null, null) as Sitecore.Diagnostics.PerformanceCounters.AmountPerSecondCounter);
                         }
                     }
                 }
@@ -48,7 +46,7 @@ namespace Sitecore.Support.Diagnostics.PerformanceCounters
             return counters;
         }
 
-        private string GetReport(AmountPerSecondCounter[] counters)
+        private string GetReport(Sitecore.Diagnostics.PerformanceCounters.AmountPerSecondCounter[] counters)
         {
             string category = "";
             bool flag = false;
@@ -56,7 +54,7 @@ namespace Sitecore.Support.Diagnostics.PerformanceCounters
             builder.AppendFormat("<report date='{0}'>\r\n", DateUtil.IsoNow);
             for (int i = 0; i < counters.Length; i++)
             {
-                AmountPerSecondCounter counter = counters[i];
+                Sitecore.Diagnostics.PerformanceCounters.AmountPerSecondCounter counter = counters[i];
                 if (counter.Category != category)
                 {
                     if (flag)
@@ -79,7 +77,7 @@ namespace Sitecore.Support.Diagnostics.PerformanceCounters
 
         public void Run()
         {
-            AmountPerSecondCounter[] counters = this.GetCounters();
+            Sitecore.Diagnostics.PerformanceCounters.AmountPerSecondCounter[] counters = this.GetCounters();
             string report = this.GetReport(counters);
             this.WriteReport(report);
         }

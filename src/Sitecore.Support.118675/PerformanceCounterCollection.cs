@@ -4,9 +4,9 @@ using System.Linq;
 using System.Web;
 using Sitecore.Diagnostics.PerformanceCounters;
 
-namespace Sitecore.Support.Diagnostics.PerformanceCounters
+namespace Sitecore.Support.Collections
 {
-    class AmountPerSecondCounterCollection : System.Collections.ObjectModel.Collection<AmountPerSecondCounter>
+    public class PerformanceCounterCollection : System.Collections.ObjectModel.Collection<AmountPerSecondCounter>
     {
         public AmountPerSecondCounter[] ToArray()
         {

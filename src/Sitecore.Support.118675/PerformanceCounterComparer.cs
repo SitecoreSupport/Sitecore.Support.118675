@@ -1,5 +1,4 @@
-﻿
-using Sitecore.Diagnostics.PerformanceCounters;
+﻿using Sitecore.Diagnostics.PerformanceCounters;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Sitecore.Support.Diagnostics.PerformanceCounters
 {
-    internal class ExtendedAmountPerSecondCounterComparer : IComparer
+    internal class PerformanceCounterComparer : IComparer
     {
         public int Compare(object x, object y)
         {

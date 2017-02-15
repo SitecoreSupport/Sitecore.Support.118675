@@ -51,23 +51,17 @@
     <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AmountPerSecondCounterCollection.cs" />
-    <Compile Include="CachingCount.cs" />
-    <Compile Include="DataCount.cs" />
-    <Compile Include="ExtendedAmountPerSecondCounterComparer.cs" />
-    <Compile Include="ExtendedCounterDumpAgent.cs" />
-    <Compile Include="JobsCount.cs" />
-    <Compile Include="PresentationCount.cs" />
+    <Compile Include="PerformanceCounterCollection.cs" />
+    <Compile Include="PerformanceCounterComparer.cs" />
+    <Compile Include="CounterDumpAgent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SecurityCount.cs" />
-    <Compile Include="SystemCount.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Config\Include\zzz\Sitecore.Support.118675.config" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="web.config" />
+    <None Include="Properties\PublishProfiles\New Version.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
