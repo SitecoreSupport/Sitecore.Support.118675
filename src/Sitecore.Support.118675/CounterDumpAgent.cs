@@ -30,7 +30,7 @@ namespace Sitecore.Support.Tasks
         {
             PerformanceCounterCollection counters = new PerformanceCounterCollection();
             Type ancestorType = typeof(Sitecore.Diagnostics.PerformanceCounters.AmountPerSecondCounter);
-            foreach (Type type2 in Assembly.GetExecutingAssembly().GetExportedTypes())
+            foreach (Type type2 in Assembly.Load("Sitecore.Kernel").GetExportedTypes())
             {
                 if (type2.Name.EndsWith("Count", StringComparison.InvariantCulture))
                 {
